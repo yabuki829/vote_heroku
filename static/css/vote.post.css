@@ -3,13 +3,14 @@
   height:  100%;
   margin: 0 auto;
   width: 600px;
+  padding-top: 50px;
 }
 
 .sidebar{
   visibility:hidden;
 } 
 
-.left-sidebar {
+.right-sidebar {
   visibility: hidden;
 }
 

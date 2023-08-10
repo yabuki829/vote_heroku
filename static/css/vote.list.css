@@ -3,10 +3,11 @@
   height:  100%;
   margin: 0 auto;
   width: 600px;
+  padding-top: 50px;
 }
 #card{
   width: 100%;
-  padding: 30px;
+  margin: 10px;
 }
 button{
   text-align: left;

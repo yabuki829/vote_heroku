@@ -108,7 +108,6 @@ class VoteDetailsView(View):
           )
         print("C")
         # 投票する
-        user = User.objects.get(user_id=user_id,active=False)
         print("ユーザー",user)
         
         print("D")

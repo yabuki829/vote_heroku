@@ -15,24 +15,28 @@
 
 
 <header id="header">
-  <h1 class="site-title">
-    <a href="{% url 'home' %}">投票サービスVote</a>
-  </h1>
+
+  <a class="site-title" href="{% url 'home' %}">投票サービスVote</a>
+  
   <nav>
-    <ul >
+    <ul class="nav-links">
       <li><a class="register" href="{% url 'home' %}">Home</a></li>    
       <li><a class="login" href="{% url 'thread' %}">Thread</a></li>
       {% if  request.user.is_authenticated  %}
         <li><a class="username" href="{% url 'logout' %}">ログアウト</a></li>    
-        
       {% else %}
-        <li><a class="register" href="{% url 'register' %}">登録</a></li>    
-        <li><a class="login" href="{% url 'login' %}">ログイン</a></li>
+        <li><a class="register" href="{% url 'login' %}"> ログイン</a></li>  
+        <li><a class="register" href="{% url 'register' %}">登録 </a></li>  
       {% endif %}
-      
-      
-      
+      <li><a class="post" href="{% url 'post' %}">投稿</a> </li>
     </ul>
+   
+
+    <div class="burger">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    </div>
   </nav>
 </header>
 <body>
@@ -45,7 +49,10 @@
    
     <button  class="sidebar-footer" onclick=" window.location.href='{% url  'post' %}' " >投稿する</button>
   </div>
-  {% block content %} {% endblock %}
+    {% block content %} {% endblock %}
+
+
+
   <div class="right-sidebar">
     <p>新規スレッド</p>
 
@@ -63,8 +70,8 @@
     {% endwith %}
       
    
-      
-   
 </div>
+<script src="{% static 'js/base.js' %}"></script>
 </body>
+
 </html>

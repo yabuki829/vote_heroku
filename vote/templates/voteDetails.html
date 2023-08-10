@@ -20,8 +20,7 @@ TODO - percentを小数点第二位までにする
 <div class="main">
   <div class="profile">
     <h4 class="profile-username">{{vote.user.username}}</h4>
-    @
-    <h4 class="profile-userid">{{vote.user.id}}</h4>
+   
   </div>
   
   <div class="content">
@@ -68,18 +67,19 @@ TODO - percentを小数点第二位までにする
     
         
   </div>
-  <hr>
+
 
   <div class="comment-content">
   
-   
+    {% if  request.user.is_authenticated  %}
+    <hr>
     <form method="post" action='{% url "comment" vote.id%}'>
       {% csrf_token %}
-      {% if  request.user.is_authenticated  %}
+    
         <div class="textarea-content">
           <textarea id="comment-textarea" name="comment" placeholder="コメントをする" ></textarea>
         </div>
-      {% endif %}
+     
       
      
       <div class="submit-button-content">
@@ -87,7 +87,7 @@ TODO - percentを小数点第二位までにする
       </div>
     </form>
     
-
+    {% endif %}
     <hr>
    
     <h2>コメント一覧</h2>
@@ -96,11 +96,10 @@ TODO - percentを小数点第二位までにする
       {% for comment in comments %}
       <div class="comment-list">
         <h3 class="comment-name">{{comment.user}}</h3>
-        ＠
-        <h3 class="comment-userid">{{comment.user.user_id}}</h3>
+       
       </div>
       <p class="comment-title"> {{comment.title}}</p>
-      <br>
+      <hr>
       {% endfor %}
         
 
