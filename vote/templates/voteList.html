@@ -1,0 +1,41 @@
+
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block css %} 
+  <link rel="stylesheet"  type="text/css" href="{% static 'css/vote.list.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="main">
+  {% for vote in votes %}
+    <button id="card" onclick="window.location.href='{% url 'details' vote.pk %}'">
+      <div id="card-header">
+        <div id="card-user">
+          <h4>{{vote.user.username}}</h4>
+          @
+          <h4 class="card-user-id">{{vote.user.id}}</h4>
+        </div>
+        <h4 class="card-createdAt">{{vote.createdAt}}</h4>
+       
+      </div>
+      <h2>{{vote.questionText}}</h2>
+      <form action="">
+        <ul>
+         
+          {% for choice in vote.choices.all %}
+  
+            <li class="choice">{{choice}}</li>
+          {% endfor %}
+          
+        </ul>
+      </form>
+      
+      
+    </button>
+    <hr>
+  {% endfor %}
+  </div>
+
+  
+{% endblock %}

@@ -1,0 +1,54 @@
+
+{% extends 'base.html' %} 
+{% load static %} 
+{% block css %} 
+<link rel="stylesheet"  type="text/css" href="{% static 'css/vote.post.css' %}">
+{% endblock %}
+{% block title %}
+<title>Vote:投稿</title>
+ {% endblock %}
+
+{% block content %}
+<div class="main">
+  <h1>投稿画面です</h1>
+  
+        
+  <form method="POST" action="{% url 'post' %}">
+    {% csrf_token %}
+
+    <div id="input_pluralBox">
+      <textarea  name="questionText" id="" cols="30" rows="10"></textarea>
+      <div id="input_plural">
+          <input type="text" name="choice" class="form-control" placeholder="選択肢">
+          <input type="button" value="＋" class="add pluralBtn">
+          <input type="button" value="－" class="del pluralBtn">
+      </div>
+    </div>  
+    
+  
+  <div class="post-button-area">
+    <button type="submit" name="post_type" value="limited">限定公開</button>
+    <button type="submit" name="post_type" value="public">全体公開</button>
+</div>
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+  $(document).on("click", ".add", function() {
+    let target = $(this).parent();
+    let cloned = target.clone(true);
+    cloned.find("input[type='text']").val(""); // 新しいinputの値を空欄にする
+    cloned.insertAfter(target);
+});
+
+  $(document).on("click", ".del", function() {
+      var target = $(this).parent();
+      if (target.parent().children().length > 1) {
+          target.remove();
+      }
+  });
+</script>
+
+</div>
+{% endblock %}

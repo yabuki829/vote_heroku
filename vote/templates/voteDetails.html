@@ -1,0 +1,128 @@
+
+{% extends 'base.html' %} 
+{% load static %} 
+{% load custom_filters %}
+
+{% block css %} 
+  <link rel="stylesheet"  type="text/css" href="{% static 'css/vote.details.css' %}">
+{% endblock %}
+
+
+{% comment %}  
+TODO - percentを小数点第二位までにする 
+
+
+{% endcomment %}
+
+
+
+{% block content %}
+<div class="main">
+  <div class="profile">
+    <h4 class="profile-username">{{vote.user.username}}</h4>
+    @
+    <h4 class="profile-userid">{{vote.user.id}}</h4>
+  </div>
+  
+  <div class="content">
+    <h3 class="questionText">{{vote.questionText}}</h3>
+    {% if  user in vote.numberOfVotes.all %}
+    {% for choice in vote.choices.all %}
+    <div type="submit" class="choice">
+        <div class="choice-content">
+            {% with percent=choices_percent_list|get_item:forloop.counter0 %}
+              
+              {% if percent == 0 %}
+                <h4 class="choice-text">{{ choice }}</h4>            
+                <h4 class="choice-percent">{{ percent }}%</h4>
+              {% else %}
+                <div class="choice-background" style="width:{{ percent }}%;"></div>  
+                <h4 class="choice-text">{{ choice }}</h4>            
+                <h4 class="choice-percent">{{ percent }}%</h4>
+              {% endif %}
+                
+               
+            {% endwith %}
+        </div>
+    </div>
+    {% endfor %}
+    <p class="voted-count-text ">{{count}}人が投票しています</p>
+    {% else %}
+    {% comment %} 投票していない場合 {% endcomment %}
+      {% for choice in vote.choices.all %}
+      <form method="post" action='{% url "details" vote.id%}'>
+        {% csrf_token %}
+        <input type="hidden" name="choice-id"  value="{{ choice.id }}">
+        <button type="submit" class="choice">
+          
+          <div class="choice-content">
+            <h4 class="choice-text">{{choice}}</h4>                      
+          </div>
+
+        </button>
+      </form>
+    
+      {% endfor %}
+    {% endif %}
+      
+    
+        
+  </div>
+  <hr>
+
+  <div class="comment-content">
+  
+   
+    <form method="post" action='{% url "comment" vote.id%}'>
+      {% csrf_token %}
+      {% if  request.user.is_authenticated  %}
+        <div class="textarea-content">
+          <textarea id="comment-textarea" name="comment" placeholder="コメントをする" ></textarea>
+        </div>
+      {% endif %}
+      
+     
+      <div class="submit-button-content">
+        <button type="submit">コメント</button>
+      </div>
+    </form>
+    
+
+    <hr>
+   
+    <h2>コメント一覧</h2>
+
+      
+      {% for comment in comments %}
+      <div class="comment-list">
+        <h3 class="comment-name">{{comment.user}}</h3>
+        ＠
+        <h3 class="comment-userid">{{comment.user.user_id}}</h3>
+      </div>
+      <p class="comment-title"> {{comment.title}}</p>
+      <br>
+      {% endfor %}
+        
+
+  </div>
+
+</div>
+{% endblock %}
+
+<script>
+  function setChoiceId(choiceId) {
+    document.getElementById('choice-id-input').value = choiceId;
+  }
+</script>
+
+
+{% comment %}
+
+
+git remote set-url origin https://github.com/yabuki829/vote_deploy_ver.git
+git remote set-url origin https://アクセストークン@github.com/xxxx/yyyy.git
+
+git remote add origin https://github.com/yabuki829/vote_deploy_ver.git
+git remote set-url --delete origin { url }
+
+{% endcomment %}

@@ -1,0 +1,11 @@
+Django==4.0
+gunicorn==20.1.0
+whitenoise 
+gunicorn
+# localhost:8080
+# docker-compose run --rm web-back sh -c "python manage.py makemigrations"
+# docker-compose run --rm web-back sh -c "python manage.py migrate"
+# docker-compose run --rm web-back sh -c "python manage.py createsuperuser"
+
+# docker-compose up -d --build
+# docker-compose up --build

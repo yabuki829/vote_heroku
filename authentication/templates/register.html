@@ -1,0 +1,24 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block css %} 
+  <link rel="stylesheet"  type="text/css" href="{% static 'css/auth.login.css' %}">
+{% endblock %}
+{% block title %}
+<title>会員登録</title>
+ {% endblock %}
+{% block content %}
+<div class="login-page">
+  
+  <div class="form">
+    <h3>会員登録</h3>
+
+    <form  method="POST" action="{% url 'register' %}" class="login-form">
+      {% csrf_token %}
+      {{ form.as_p }} 
+    
+      <button type="submit">register</button>
+      <h3 class="message">アカウントをお持ちの方は <a href="{% url 'login' %}">こちら</a></h3>
+    </form>
+  </div>
+</div>
+{% endblock %}

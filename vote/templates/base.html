@@ -1,0 +1,70 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+  {% block css %} {% endblock %}
+  {% block title %} {% endblock %}
+  
+  <link rel="stylesheet"  type="text/css" href="{% static 'css/vote.base.css' %}">
+</head>
+
+
+<header id="header">
+  <h1 class="site-title">
+    <a href="{% url 'home' %}">投票サービスVote</a>
+  </h1>
+  <nav>
+    <ul >
+      <li><a class="register" href="{% url 'home' %}">Home</a></li>    
+      <li><a class="login" href="{% url 'thread' %}">Thread</a></li>
+      {% if  request.user.is_authenticated  %}
+        <li><a class="username" href="{% url 'logout' %}">ログアウト</a></li>    
+        
+      {% else %}
+        <li><a class="register" href="{% url 'register' %}">登録</a></li>    
+        <li><a class="login" href="{% url 'login' %}">ログイン</a></li>
+      {% endif %}
+      
+      
+      
+    </ul>
+  </nav>
+</header>
+<body>
+  <div class="sidebar">
+    <ul>
+      <li><button onclick="window.location.href='{% url 'home' %}'">Home</button></li>
+      <li><button onclick="window.location.href='{% url 'thread' %}'">Thread</button></li>
+      {% comment %} <li><button onclick="window.location.href='{% url 'profile' %}'">Profile</button> </li> {% endcomment %}
+    </ul>
+   
+    <button  class="sidebar-footer" onclick=" window.location.href='{% url  'post' %}' " >投稿する</button>
+  </div>
+  {% block content %} {% endblock %}
+  <div class="right-sidebar">
+    <p>新規スレッド</p>
+
+    <p>お知らせ</p>
+    
+    {% with  "news"|get_news   as blogs %}
+    
+    {% for blog in blogs %}
+      <div class="blog">
+        <a class="blog-title" href="">{{blog.title}}</a>
+        <h5 class="blog-createdAt">{{blog.createdAt}}</h5>
+      </div>
+    {% endfor %}
+
+    {% endwith %}
+      
+   
+      
+   
+</div>
+</body>
+</html>
