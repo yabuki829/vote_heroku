@@ -1,7 +1,8 @@
-Django==4.0
+
+
+-r requirements-dev.txt
 gunicorn==20.1.0
-whitenoise 
-gunicorn
+psycopg2
 # localhost:8080
 # docker-compose run --rm web-back sh -c "python manage.py makemigrations"
 # docker-compose run --rm web-back sh -c "python manage.py migrate"

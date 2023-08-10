@@ -11,25 +11,18 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-# from dotenv import load_dotenv  # 追加
+from decouple import config
+from dj_database_url import parse as dburl
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PROJECT_DIR = os.path.basename(BASE_DIR)  # 追加
-
-# .envの読み込み
-# load_dotenv(os.path.join(BASE_DIR, '.env'))  # 追加
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7-@adzfdhh_ae3-v91$xtb69@t1dh-)ah!u#s-2xm1*y4l9-$6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+SECRET_KEY = '7-@adzfdhh_ae3-v91$xtb69@t1dh-)ah!u#s-2xm1*y4l9-$6'
+
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -83,12 +76,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, "db.sqlite3")
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': config('DATABASE_URL', default=default_dburl, cast=dburl),
 }
 
 
