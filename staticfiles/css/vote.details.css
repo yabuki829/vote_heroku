@@ -3,7 +3,7 @@
   height:  100%;
   margin: 0 auto;
   width: 600px;
-  padding-top:  20px;
+  padding-top:  50px;
 
 
 }
@@ -118,6 +118,7 @@ form .submit-button-content button{
 .comment-list {
   display: flex;
   align-items: center;
+  
 }
 
 @media screen and (max-width: 1000px ) {

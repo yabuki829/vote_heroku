@@ -7,7 +7,7 @@ body{
   color: #24292e;
   font-family: "Sawarabi Gothic";
 
-  padding-top:  100px;
+  padding-top:  130px;
   /* min-height: 100vh; */
 
   background-color: #FFF0F5;
@@ -15,6 +15,15 @@ body{
   display: flex;
 }
 
+hr {
+  margin-top:  10px;
+  margin-bottom: 10px;
+}
+
+.hr-margin {
+  margin-top:  40px;
+  margin-bottom: 40px;
+}
 a {
   text-decoration: none;
 }
@@ -166,16 +175,28 @@ header nav .username span  {
 }
 
 .site-title {
-  line-height: 1px;
+  /* line-height: 1px; */
   font-weight: 60px;
   font-size: 2.4rem;
-  
-}
-
-
-.site-title a {
   color: #24292e;
   display: block;
+  
+}
+.nav-active {
+  transform: translateX(0%) !important;
+}
+
+.burger {
+  display: none;
+  cursor: pointer;
+}
+
+.burger div {
+  width: 25px;
+  height: 3px;
+  background-color: black;
+  margin: 5px;
+  transition: 0.5s ease;
 }
 
 @media screen and (max-width: 1000px ) {
@@ -184,11 +205,11 @@ header nav .username span  {
     font-size: 1.5rem;
   }
   #header{
-    flex-direction: column;
+    /* flex-direction: column; */
     height: auto;
 
   }  
-  #header nav {
+  #header .nav-links-pc {
     display: none;
   }
   .sidebar{
@@ -199,21 +220,56 @@ header nav .username span  {
     visibility: hidden;
   }
   body{
-  
     padding-top:  80px;
   }
+  body {
+    overflow-x: hidden;
+  }
 
+  .nav-links {
+    /* display: flex; */
+    position: absolute;
+    right: 0;
+    height: 92vh;
+    top: 100px;
+    background-color: #eee;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    transform: translateX(100%);
+    transition: transform 0 ease-in;
+  }
+  .nav-links li {
+    opacity: 0;
+    font-weight: bold;
+    padding: 10px;
+    
+    text-align: center;
+  }
+  
+ .burger {
+    display: block;
+  }
  
 }
 
-
-
-
-
-/* よく使うやつ */
-.center {
-  text-align: center;
+@keyframes navLinksFade {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
 }
-.right {
-  text-align: right;
+
+.toggle .line1 {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+.toggle .line2 {
+  opacity: 0;
+}
+.toggle .line3 {
+  transform: rotate(405deg) translate(-5px, -6px);
 }
