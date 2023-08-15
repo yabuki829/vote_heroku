@@ -3,7 +3,7 @@
   height:  100%;
   margin: 0 auto;
   width: 600px;
-  padding-top:  50px;
+  padding-top:  0px;
 
 
 }
@@ -126,3 +126,4 @@ form .submit-button-content button{
     margin: 0 30px;
   }
 }
+

@@ -25,6 +25,7 @@ TODO - percentを小数点第二位までにする
   
   <div class="content">
     <h3 class="questionText">{{vote.questionText}}</h3>
+    
     {% if  user in vote.numberOfVotes.all %}
     {% for choice in vote.choices.all %}
     <div type="submit" class="choice">

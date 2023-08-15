@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+
   {% block css %} {% endblock %}
   {% block title %} {% endblock %}
   
@@ -19,24 +20,37 @@
   <a class="site-title" href="{% url 'home' %}">投票サービスVote</a>
   
   <nav>
-    <ul class="nav-links">
-      <li><a class="register" href="{% url 'home' %}">Home</a></li>    
-      <li><a class="login" href="{% url 'thread' %}">Thread</a></li>
-      {% if  request.user.is_authenticated  %}
-        <li><a class="username" href="{% url 'logout' %}">ログアウト</a></li>    
-      {% else %}
-        <li><a class="register" href="{% url 'login' %}"> ログイン</a></li>  
-        <li><a class="register" href="{% url 'register' %}">登録 </a></li>  
-      {% endif %}
-      <li><a class="post" href="{% url 'post' %}">投稿</a> </li>
-    </ul>
-   
+    
+    <div class="nav-links">
+       <a href="{% url 'home' %}">
+        <img class="icon" src="{% static 'images/vote.png' %}" alt=""> 
+        <p>Home</p>      
+      </a>
+      <a href="{% url 'thread' %}">
+        <img class="icon" src="{% static 'images/thread.png' %}" alt=""> 
+        <p>Thread</p>      
+      </a>
 
-    <div class="burger">
-      <div class="line1"></div>
-      <div class="line2"></div>
-      <div class="line3"></div>
+      {% if  request.user.is_authenticated  %}
+      <a  href="{% url 'logout' %}">
+        <img class="icon" src="{% static 'images/person.png' %}" alt=""> 
+        <p>ログアウト</p>      
+      </a>
+      {% else %}
+      <a  href="{% url 'login' %}">
+        <img class="icon" src="{% static 'images/person.png' %}" alt=""> 
+        <p>ログイン</p>      
+      </a>
+      {% endif %}
+
+    
+      <a href="{% url 'post' %}">
+        <img class="icon" src="{% static 'images/post.png' %}" alt=""> 
+        <p>投稿</p>      
+      </a>
+
     </div>
+  
   </nav>
 </header>
 <body>
