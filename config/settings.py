@@ -132,16 +132,20 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # 追加
 # メディアファイルpath
 MEDIA_URL = '/media/' # 追加
 
-# 追加
+
+
+# イラン
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ]
 }
 
+# イラン
 CORS_ORIGIN_WHITELIST = (
     'http://localhost',
 )
+
 
 AUTH_USER_MODEL = 'vote.User'
 CSRF_TRUSTED_ORIGINS=["http://localhost:8080"]
