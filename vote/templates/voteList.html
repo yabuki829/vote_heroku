@@ -4,11 +4,13 @@
 
 {% block css %} 
   <link rel="stylesheet"  type="text/css" href="{% static 'css/vote.list.css' %}">
+  <link rel="stylesheet"  type="text/css" href="{% static 'css/pagenation.css' %}">
 {% endblock %}
 
 {% block content %}
-  <div class="main">
-  {% for vote in votes %}
+  
+  {% for vote in data_p %}
+
     <button id="card" onclick="window.location.href='{% url 'details' vote.pk %}'">
       <div id="card-header">
         <div id="card-user">
@@ -34,7 +36,55 @@
     </button>
     <hr>
   {% endfor %}
-  </div>
+  <br>
+  <ul class="Pagination">
+    {% if  data_p.has_previous %}
+      <li class="Pagination-Item">
+        <a class="Pagination-Item-Link" href="?page={{data_p.previous_page_number}}">
+            <svg xmlns="http://www.w3.org/2000/svg" class="Pagination-Item-Link-Icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+            </svg>
+        </a>
+    </li>
+    {% else %}
+    <li class="Pagination-Item">
+      <svg xmlns="http://www.w3.org/2000/svg" class="Pagination-Item-Link-Icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+      </svg>
+    </li>
+    {% endif %}
+    
+    {% for i in data_list %}
+    <li class="Pagination-Item">
+      {% if  data_p.number == i %}
+      <a class="Pagination-Item-Link isActive"  href="?page={{i}}"><span>{{i}}</span></a>
+      {% elif i == data_p.paginator.ELLIPSIS %}
+      <a class="Pagination-Item-Link" href="#"><span>{{i}}</span></a>
+      {% else %}
+       <a class="Pagination-Item-Link" href="?page={{i}}"><span>{{i}}</span></a>
+      {% endif %}
+     
+    </li>
+    {% endfor %}
+    
+    {% if data_p.has_next %}
+        <li class="Pagination-Item">
+          <a class="Pagination-Item-Link" href="?page={{data_p.next_page_number}}">
+              <svg xmlns="http://www.w3.org/2000/svg" class="Pagination-Item-Link-Icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+              </svg>
+          </a>
+      </li>
+    {% else %}
+    <li class="Pagination-Item">
+          <svg xmlns="http://www.w3.org/2000/svg" class="Pagination-Item-Link-Icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+          </svg>
+  </li>
+    {% endif %}
+      
+    
+</ul>
 
   
 {% endblock %}

@@ -1,0 +1,23 @@
+
+{% extends 'base.html' %} 
+{% load static %} 
+{% block css %} 
+<link rel="stylesheet"  type="text/css" href="{% static 'css/vote.delete.css' %}">
+{% endblock %}
+{% block title %}
+<title>Vote:削除</title>
+ {% endblock %}
+
+{% block content %}
+  <h2 class="title">{{vote.questionText}}</h2>
+  <hr>
+  <h2>本当に削除してもよろしいですか？</h2>
+  <br>
+
+  <form method="POST" action="{% url 'delete' pk=vote.pk %}">
+    {% csrf_token %}
+    <div class="button-area">
+      <button class="delete" type="submit" name="post_type" value="limited">削除</button>
+    </div>
+  </form>
+{% endblock %}

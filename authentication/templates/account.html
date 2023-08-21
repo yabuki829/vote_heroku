@@ -1,0 +1,28 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block css %} 
+  <link rel="stylesheet"  type="text/css" href="{% static 'css/auth.account.css' %}">
+  
+{% endblock %}
+{% block title %}
+<title>Vote:ユーザー</title>
+ {% endblock %}
+{% block content %}
+
+  <a  href="{% url 'logout' %}">ログアウト</a>
+  {% for vote in votes %}
+  <div href="/" class="card">
+    <h2 class="title">{{vote.questionText}}</h2>
+    <div class="card-content">
+      <h5>{{vote.createdAt}}</h5>
+      <a href="{% url 'delete' vote.pk %}">削除</a>
+    </div>
+  </div>
+  {% endfor %}
+    
+  
+   
+   
+
+ 
+{% endblock %}

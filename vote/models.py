@@ -99,6 +99,8 @@ class Vote(models.Model):
     #urlを知っている人のみ投票ができる
     isLimitedRelease = models.BooleanField(default=False)
     numberOfVotes = models.ManyToManyField(User, blank=True,related_name="numberOfVotes")
+    pv = models.IntegerField(default=0)
+    
     def __str__(self) -> str:
        return self.questionText
 

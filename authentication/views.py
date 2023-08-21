@@ -3,7 +3,7 @@ from django.views.generic import View
 # Create your views here.
 from django.contrib.auth import login, authenticate
 from .forms import LoginForm,UserCreateForm
-from vote.models import User
+from vote.models import User,Vote
 from django.shortcuts import render, redirect
 
 class LoginView(View):
@@ -63,3 +63,26 @@ class RegisterView(View):
         else: 
           print("バリデーションに失敗しました。")
         return render(request, 'register.html', {'form': form,})
+
+
+# profileを表示する
+
+class AccountView(View):
+  def get(self,request):
+    # もしログインしていなければlogin画面に飛ばす
+    if self.request.user.is_anonymous:
+      form = LoginForm()
+      params = {
+        "form":form
+      }
+      return redirect("/accounts/login")
+
+    # self.requset.user が投稿したvoteを取得する
+    vote = Vote.objects.filter(user=self.request.user)
+    context = {
+      "votes":vote
+    }
+    print(vote)
+    return render(request,"account.html",context)
+  def post(self,request):
+    pass

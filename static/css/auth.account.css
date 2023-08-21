@@ -1,0 +1,42 @@
+.main {
+  background-color: white;
+  height:  100%;
+  margin: 0 auto;
+  width: 600px;
+  padding-top: 0px;
+  
+}
+
+
+.card {
+  padding: 10px;
+  text-decoration: none;
+  border: 1px solid #000;
+  margin-bottom: 10px;
+}
+.card h2 {
+  width: 100%;
+  border-bottom:  1px solid #000;
+}
+.card-content{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+
+}
+.card-content a {
+  text-decoration: none;
+  background-color: red;
+  color: white;
+  padding: 5px 10px;
+}
+
+@media screen and (max-width: 1000px ) {
+  .main {
+    margin: 0 30px;
+    padding-top: 10px;
+
+
+  }
+}

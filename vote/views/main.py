@@ -2,15 +2,25 @@ from django.shortcuts import render
 from ..models import Vote,Choice,User,VoteComment
 from django.views.generic import View
 from django.shortcuts import redirect
-
+from django.core.paginator import Paginator
 from ..methods import random
 class VoteListView(View):
+
   def get(self,request):
-    votes = Vote.objects.filter(isLimitedRelease=False).prefetch_related('choices').order_by('-createdAt')
-    data = {
-    'votes': votes,
-    "isVoted":False
-    }
+    page = request.GET.get('page') # 表示したいページ
+    if page == None :
+      page = 1
+    page_cnt = 10 #一画面あたり10コ表示する
+    onEachSide = 3 #選択ページの両側には3コ表示する
+    onEnds = 2 #左右両端には2コ表示する
+
+    data = Vote.objects.filter(isLimitedRelease=False).prefetch_related('choices').order_by('-createdAt')
+    data_page = Paginator(data,page_cnt)
+    data_p = data_page.get_page(page)
+
+    data_p = data_page.get_page(page)
+    data_list = list(data_p.paginator.get_elided_page_range(page, on_each_side=onEachSide, on_ends=onEnds)) 
+    data = {'data_p':data_p,'data_list':data_list}
     return render(request,"voteList.html",data)
 
 
@@ -19,7 +29,7 @@ class VoteDetailsView(View):
     vote = Vote.objects.prefetch_related('choices').get(id=pk)
     user = self.request.user
     count = len(vote.numberOfVotes.all())
-
+   
     # コメントを取得する
     comments = VoteComment.objects.filter(vote=vote.id).order_by('-createdAt')
 
@@ -212,3 +222,37 @@ class VoteCommentView(View):
     VoteComment.objects.create(title=self.request.POST["comment"],user=self.request.user,vote=vote)
 
     return redirect( "details",vote.id )
+
+
+
+
+
+class DeleteVoteView(View):
+  def get(self,request,pk):
+    # userがログインしていなければ元のページに戻す
+    # vote.userとself.request.userが一致すれば表示する
+    if self.request.user.is_anonymous :
+      return redirect( "home" )
+
+    vote = Vote.objects.get(pk=pk)
+
+    if vote.user != self.request.user:
+      return redirect( "home" )
+
+    context = {
+      "vote":vote
+    }
+    return render(request,"delete.html",context)
+
+  def post(self,request,pk):
+    print("削除します")
+    if self.request.user.is_anonymous :
+      return redirect( "home" )
+    vote = Vote.objects.get(pk=pk)
+
+    if vote.user != self.request.user:
+      return redirect( "home" )
+
+    vote.delete()
+
+    return redirect("accounts")

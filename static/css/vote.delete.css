@@ -1,0 +1,19 @@
+.button-area {
+  display: flex;
+  justify-content: center;
+}
+
+h2 {
+  text-align: center  ;
+}
+
+.button-area .back {
+  background-color: #C0C0C0;
+  padding: 5px 10px;
+}
+
+.button-area .delete {
+  background-color: red;
+  color: white;
+  padding: 5px 10px;
+}

@@ -1,0 +1,13 @@
+.footer {
+  width: 100%;
+  /* background-color: red; */
+  text-align: center;
+}
+
+.footer-title {
+  font-weight: bold;
+}
+
+.copyright {
+  font-size: 0.7rem;
+}
